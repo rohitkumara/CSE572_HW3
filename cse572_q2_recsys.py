@@ -74,14 +74,14 @@ class RecSys:
 		plt.show()
 
 
-	def UBCF(self, sim_metric, k=40):
+	def UBCF(self, sim_metric='msd', k=40):
 		# KNNBasic for user based collaborative filter
 		# ref: https://surprise.readthedocs.io/en/stable/knn_inspired.html#surprise.prediction_algorithms.knns.KNNBasic
 		loss = cross_validate(KNNBasic(k, sim_options={'name': sim_metric}), self.data, measures=["MAE", "RMSE"], \
 								cv=5)
 		return loss
 
-	def IBCF(self, sim_metric, k=40):
+	def IBCF(self, sim_metric='msd', k=40):
 		# KNNBasic for item based collaborative filter with setting user_based=false
 		# ref: https://surprise.readthedocs.io/en/stable/prediction_algorithms.html#similarity-measures-configuration
 		loss = cross_validate(KNNBasic(k, sim_options={'name': sim_metric, 'user_based': False}), self.data, measures=["MAE", "RMSE"], \
